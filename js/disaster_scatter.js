@@ -1,5 +1,13 @@
 // Goal: make a scatterplot of disaster data, 
-// with color by region
+// with color by class of data (complex, natural, or technological)
+
+//Mike: this dataset is quite large, and its values are incredibly variable. 
+// With that in mind, the point of this interactivity is to be able to set the
+// maximum axis values you want, so you can see the data that are mostly hidden
+// in the far corner of the plot.  
+// (basically, this is a really bad 'zoom' function.)
+
+//to use: type build(desired xMax, desired yMax) into the console.
 
 //Width and height settings
 var settings = {
@@ -110,23 +118,23 @@ var build = function(xCutoff, yCutoff){
 
 //labels
 var drawLabels = function(){
-	var title = d3.select('#plotG')
+	var title = d3.select('#my-svg')
 				.append('text')
 				.attr('class', 'label')
 				.attr('id', 'plotTitle')
-				.attr('transform', 'translate(' + settings.width/3 + ',' + 10 + ')')
+				.attr('transform', 'translate(' + (settings.width/3 + settings.xPadding) + ',' + 25 + ')')
 				.text('Global disasters: ' + settings.xVar + ' vs ' + settings.yVar)
 
-	var xAxisLabel = d3.select('#plotG')
+	var xAxisLabel = d3.select('#my-svg')
 					.append('text')
 					.attr('class', 'label')
-					.attr('transform', 'translate(' + settings.width/2 + ',' + 550 + ')')
+					.attr('transform', 'translate(' + (settings.width/2 + settings.xPadding) + ',' + (550 + settings.yPadding) + ')')
 					.text(settings.xVar)
 
-	var yAxisLabel = d3.select('#plotG')
+	var yAxisLabel = d3.select('#my-svg')
 				.append('text')
 				.attr('class', 'label')
-				.attr('transform', 'translate(' + -75 + ',' + settings.height/2 + ') rotate(270)')
+				.attr('transform', 'translate(' + 25 + ',' + (settings.height/1.75 + settings.yPadding) + ') rotate(270)')
 				.text(settings.yVar)
 }
 
@@ -159,4 +167,4 @@ var drawLegend = function(){
 			.style('fill', function(d) {return colorScale(d)})
 }
 
-build(5000, 5000)
+build(500000000, 50000000)
